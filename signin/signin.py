@@ -14,7 +14,7 @@ PASSWORD_INCORRECT = 'sdfsdfsdfsf'
 PASSWORD_SHORT = '123'
 
 
-class PythonOrgSearch(unittest.TestCase):
+class SignIn(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
 
@@ -103,8 +103,8 @@ class PythonOrgSearch(unittest.TestCase):
 
         wait = WebDriverWait(driver, 10, poll_frequency=1,
                              ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
-        create_acc_title = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.auth-box h2')))
-        self.assertEqual(create_acc_title.text, 'Создать аккаунт')
+        signup_title = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.auth-box h2')))
+        self.assertEqual(signup_title.text, 'Создать аккаунт')
 
     def tearDown(self):
         self.driver.close()
