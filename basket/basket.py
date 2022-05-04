@@ -2,17 +2,15 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import *
 from selenium.webdriver.common.keys import Keys
 import unittest
-from utils.utils import login
+from utils.utils import Utils
 from selenium.webdriver.support.ui import Select
 from all_products.page import AllProductsPage
 from one_product.page import OneProductPage
 from basket.page import BasketPage
 from profile.page import ProfilePage
+
 
 PRODUCT_COUNT = 2
 POST_OPTION = 2
@@ -22,19 +20,18 @@ class Basket(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.product_id = 0
+        self.utils = Utils(driver=self.driver)
         self.allProductsPage = AllProductsPage(self.driver)
         self.oneProductPage = OneProductPage(self.driver)
         self.basketPage = BasketPage(self.driver)
         self.profilePage = ProfilePage(self.driver)
+        self.utils.login()
 
     def test_basket(self):
-        driver = self.driver
-        login(driver)
-
         product_card = self.allProductsPage.get_product_card()
         product_card.click()
         one_product = self.oneProductPage.get_product_card()
-        current_url = driver.current_url
+        current_url = self.driver.current_url
         self.product_id = int(current_url[current_url.rfind('=')+1:len(current_url)])
         add_to_basket_button = self.oneProductPage.get_add_to_basket_button()
         add_to_basket_button.click()
@@ -47,13 +44,10 @@ class Basket(unittest.TestCase):
         remover.click()
 
     def test_basket_count(self):
-        driver = self.driver
-        login(driver)
-
         product_card = self.allProductsPage.get_product_card()
         product_card.click()
         one_product = self.oneProductPage.get_product_card()
-        current_url = driver.current_url
+        current_url = self.driver.current_url
         self.product_id = int(current_url[current_url.rfind('=')+1:len(current_url)])
         add_to_basket_button = self.oneProductPage.get_add_to_basket_button()
         add_to_basket_button.click()
@@ -76,13 +70,10 @@ class Basket(unittest.TestCase):
         remover.click()
 
     def test_basket_refresh(self):
-        driver = self.driver
-        login(driver)
-
         product_card = self.allProductsPage.get_product_card()
         product_card.click()
         one_product = self.oneProductPage.get_product_card()
-        current_url = driver.current_url
+        current_url = self.driver.current_url
         self.product_id = int(current_url[current_url.rfind('=')+1:len(current_url)])
 
         add_to_basket_button = self.oneProductPage.get_add_to_basket_button()
@@ -91,7 +82,7 @@ class Basket(unittest.TestCase):
         go_to_basket_button = self.oneProductPage.get_go_to_basket_button()
         go_to_basket_button.click()
 
-        driver.refresh()
+        self.driver.refresh()
 
         css_product = 'table-product-' + self.product_id.__str__()
         product_in_basket = self.basketPage.get_basket_product(self.product_id)
@@ -100,14 +91,11 @@ class Basket(unittest.TestCase):
         remover.click()
 
     def test_basket_delete_product(self):
-        driver = self.driver
-        login(driver)
-
         product_card = self.allProductsPage.get_product_card()
         product_card.click()
 
         one_product = self.oneProductPage.get_product_card()
-        current_url = driver.current_url
+        current_url = self.driver.current_url
         self.product_id = int(current_url[current_url.rfind('=')+1:len(current_url)])
         add_to_basket_button = self.oneProductPage.get_add_to_basket_button()
         add_to_basket_button.click()
@@ -123,13 +111,10 @@ class Basket(unittest.TestCase):
         self.basketPage.wait_basket_product_remove(product_in_basket)
 
     def test_basket_empty(self):
-        driver = self.driver
-        login(driver)
-
         product_card = self.allProductsPage.get_product_card()
         product_card.click()
         one_product = self.oneProductPage.get_product_card()
-        current_url = driver.current_url
+        current_url = self.driver.current_url
         self.product_id = int(current_url[current_url.rfind('=')+1:len(current_url)])
 
         add_to_basket_button = self.oneProductPage.get_add_to_basket_button()
@@ -146,14 +131,11 @@ class Basket(unittest.TestCase):
         self.assertEqual(empty_basket_text.text, "Ваша корзина пуста. Вернуться к покупкам")
 
     def test_basket_increase_in_basket(self):
-        driver = self.driver
-        login(driver)
-
         product_card = self.allProductsPage.get_product_card()
         product_card.click()
 
         one_product = self.oneProductPage.get_product_card()
-        current_url = driver.current_url
+        current_url = self.driver.current_url
         self.product_id = int(current_url[current_url.rfind('=')+1:len(current_url)])
         add_to_basket_button = self.oneProductPage.get_add_to_basket_button()
         add_to_basket_button.click()
@@ -179,14 +161,11 @@ class Basket(unittest.TestCase):
         remover.click()
 
     def test_basket_change_sum_of_one_product(self):
-        driver = self.driver
-        login(driver)
-
         product_card = product_card = self.allProductsPage.get_product_card()
         product_card.click()
 
         one_product = self.oneProductPage.get_product_card()
-        current_url = driver.current_url
+        current_url = self.driver.current_url
         self.product_id = int(current_url[current_url.rfind('=')+1:len(current_url)])
         add_to_basket_button = self.oneProductPage.get_add_to_basket_button()
         add_to_basket_button.click()
@@ -215,14 +194,11 @@ class Basket(unittest.TestCase):
         remover.click()
 
     def test_basket_change_sum_many_products(self):
-        driver = self.driver
-        login(driver)
-
         product_card = product_card = self.allProductsPage.get_product_card()
         product_card.click()
 
         one_product = self.oneProductPage.get_product_card()
-        current_url = driver.current_url
+        current_url = self.driver.current_url
         self.product_id = int(current_url[current_url.rfind('=')+1:len(current_url)])
 
         add_to_basket_button = self.oneProductPage.get_add_to_basket_button()
@@ -254,14 +230,11 @@ class Basket(unittest.TestCase):
         remover.click()
 
     def test_basket_selector(self):
-        driver = self.driver
-        login(driver)
-
         product_card = product_card = self.allProductsPage.get_product_card()
         product_card.click()
 
         one_product = self.oneProductPage.get_product_card()
-        current_url = driver.current_url
+        current_url = self.driver.current_url
         self.product_id = int(current_url[current_url.rfind('=')+1:len(current_url)])
         add_to_basket_button = self.oneProductPage.get_add_to_basket_button()
         add_to_basket_button.click()
@@ -280,7 +253,7 @@ class Basket(unittest.TestCase):
 
     def test_success_order(self):
         driver = self.driver
-        login(driver)
+
 
         product_card = product_card = self.allProductsPage.get_product_card()
         product_card.click()

@@ -29,13 +29,13 @@ def suite():
     # suite.addTest(Basket('test_basket_change_sum_many_products'))
     # suite.addTest(Basket('test_basket_selector'))
     # suite.addTest(Basket('test_success_order'))
-    # suite.addTest(Profile('test_profile_update_button'))
-    # suite.addTest(Profile('test_profile_update_notification'))
-    # suite.addTest(Profile('test_update_name'))
-    # suite.addTest(Profile('test_update_surname'))
-    # suite.addTest(Profile('test_update_email'))
-    # suite.addTest(Profile('test_update_sex'))
-    # suite.addTest(Profile('test_update_birthday'))
+    suite.addTest(Profile('test_profile_update_button'))
+    suite.addTest(Profile('test_profile_update_notification'))
+    suite.addTest(Profile('test_update_name'))
+    suite.addTest(Profile('test_update_surname'))
+    suite.addTest(Profile('test_update_email'))
+    suite.addTest(Profile('test_update_sex'))
+    suite.addTest(Profile('test_update_birthday'))
     return suite
 
 
