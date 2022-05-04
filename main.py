@@ -1,6 +1,7 @@
 import unittest
 from signin.signin import SignIn
 from signup.signup import Signup
+from basket.basket import Basket
 
 
 def suite():
@@ -17,6 +18,16 @@ def suite():
     suite.addTest(Signup('test_signup_passwords_not_match'))
     suite.addTest(Signup('test_signup_wrong_email_wrong'))
     suite.addTest(Signup('test_signup_redirect_to_signin'))
+    suite.addTest(Basket('test_basket'))
+    suite.addTest(Basket('test_basket_count'))
+    suite.addTest(Basket('test_basket_refresh'))
+    suite.addTest(Basket('test_basket_delete_product'))
+    suite.addTest(Basket('test_basket_empty'))
+    suite.addTest(Basket('test_basket_increase_in_basket'))
+    suite.addTest(Basket('test_basket_change_sum_of_one_product'))
+    suite.addTest(Basket('test_basket_change_sum_many_products'))
+    suite.addTest(Basket('test_basket_selector'))
+    suite.addTest(Basket('test_success_order'))
     return suite
 
 
