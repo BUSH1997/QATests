@@ -29,3 +29,9 @@ class SignUpPage:
 
     def get_button_element(self):
         return self.driver.find_element(by=By.CLASS_NAME, value='auth-btn')
+
+    def get_error_element(self):
+        return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'auth-content-inner__error')))
+
+    def get_signin_link(self):
+        return self.driver.find_element(by=By.CLASS_NAME, value='auth-content-form-signin__link')

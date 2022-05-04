@@ -13,7 +13,7 @@ def suite():
     # suite.addTest(SignIn('test_signin_incorrect_password'))
     # suite.addTest(SignIn('test_signin_short_password'))
     # suite.addTest(SignIn('test_signin_redirect_to_signup'))
-    suite.addTest(Signup('test_signup_positive'))
+    # suite.addTest(Signup('test_signup_positive'))
     # suite.addTest(Signup('test_signup_empty_field'))
     # suite.addTest(Signup('test_signup_user_exists'))
     # suite.addTest(Signup('test_signup_passwords_not_match'))

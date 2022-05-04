@@ -12,6 +12,9 @@ class SignInPage:
         self.wait = WebDriverWait(driver, 10, poll_frequency=1,
                              ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
 
+    def get_signin_title(self):
+        return self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.auth-box h2')))
+
     def get_login_element(self):
         return self.driver.find_element(by=By.CLASS_NAME, value='user-box__login')
 
