@@ -11,18 +11,19 @@ class SignInPage:
         self.driver = driver
         self.wait = WebDriverWait(driver, 10, poll_frequency=1,
                              ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+
     def get_login_element(self):
         return self.driver.find_element(by=By.CLASS_NAME, value='user-box__login')
+
     def get_password_element(self):
         return self.driver.find_element(by=By.CLASS_NAME, value='user-box__password')
+
     def get_button_element(self):
         return self.driver.find_element(by=By.CLASS_NAME, value='auth-btn')
-    def get_profile_icon(self):
-        return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'icons__link-avatar')))
-    def get_profile_link(self):
-        return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'profile')))
+
     def get_error_element(self):
         return self.wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'auth-content-inner__error')))
+
     def get_signup_link(self):
         return self.driver.find_element(by=By.CLASS_NAME, value='auth-content-form-registration__link')
 

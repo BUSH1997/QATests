@@ -1,4 +1,6 @@
 from selenium import webdriver
+
+from navbar.page import NavbarPage
 from .page import SignInPage
 from profile.page import ProfilePage
 from signup.page import SignUpPage
@@ -20,6 +22,7 @@ class SignIn(unittest.TestCase):
         self.signinPage = SignInPage(self.driver)
         self.profilePage = ProfilePage(self.driver)
         self.signupPage = SignUpPage(self.driver)
+        self.navbarPage = NavbarPage(self.driver)
 
     def test_signin_positive(self):
         driver = self.driver
@@ -34,10 +37,10 @@ class SignIn(unittest.TestCase):
         element_button = self.signinPage.get_button_element()
         element_button.click()
 
-        profile_icon = self.signinPage.get_profile_icon()
+        profile_icon = self.navbarPage.get_profile_icon()
         profile_icon.click()
 
-        profile_link = self.signinPage.get_profile_link()
+        profile_link = self.navbarPage.get_profile_link()
         profile_link.click()
 
         user_name = self.profilePage.get_username_element()

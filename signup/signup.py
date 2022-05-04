@@ -7,6 +7,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
 import unittest
 from random_username.generate import generate_username
+from signin.page import SignInPage
+from profile.page import ProfilePage
+from signup.page import SignUpPage
+from navbar.page import NavbarPage
 
 url = "https://goodvibesazot.tk/signup"
 
@@ -22,28 +26,30 @@ PASSWORD_CONFIRM_NOT_MATCH = '12346'
 class Signup(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Chrome()
+        self.signinPage = SignInPage(self.driver)
+        self.profilePage = ProfilePage(self.driver)
+        self.signupPage = SignUpPage(self.driver)
+        self.navbarPage = NavbarPage(self.driver)
 
     def test_signup_positive(self):
         driver = self.driver
         driver.get(url=url)
-        element_login = driver.find_element(by=By.CLASS_NAME, value='user-box__login')
+        element_login = self.signupPage.get_login_element()
         element_login.send_keys(LOGIN)
-        element_email = driver.find_element(by=By.CLASS_NAME, value='user-box__email')
+        element_email = self.signupPage.get_email_element()
         element_email.send_keys(EMAIL)
-        element_password = driver.find_element(by=By.CLASS_NAME, value='user-box__password')
+        element_password = self.signupPage.get_password_element()
         element_password.send_keys(PASSWORD)
-        element_password_repeat = driver.find_element(by=By.CLASS_NAME, value='user-box__confirm-password')
+        element_password_repeat = self.signupPage.get_password_confirm_element()
         element_password_repeat.send_keys(PASSWORD_CONFIRM)
-        element_button = driver.find_element(by=By.CLASS_NAME, value='auth-btn')
+        element_button =  self.signupPage.get_button_element()
         element_button.click()
 
-        wait = WebDriverWait(driver, 10, poll_frequency=1,
-                             ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
-        profile_icon = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'icons__link-avatar')))
+        profile_icon = self.navbarPage.get_profile_icon()
         profile_icon.click()
-        profile_link = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'profile')))
+        profile_link = self.navbarPage.get_profile_link()
         profile_link.click()
-        user_name = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.profile-image-block .b2n')))
+        user_name = self.profilePage.get_username_element()
         self.assertEqual(LOGIN, user_name.text)
 
     def test_signup_empty_field(self):

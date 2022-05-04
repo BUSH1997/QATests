@@ -11,5 +11,21 @@ class SignUpPage:
         self.driver = driver
         self.wait = WebDriverWait(driver, 10, poll_frequency=1,
                              ignored_exceptions=[ElementNotVisibleException, ElementNotSelectableException])
+
     def get_signup_title(self):
         return self.wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.auth-box h2')))
+
+    def get_login_element(self):
+        return self.driver.find_element(by=By.CLASS_NAME, value='user-box__login')
+
+    def get_email_element(self):
+        return self.driver.find_element(by=By.CLASS_NAME, value='user-box__email')
+
+    def get_password_element(self):
+        return self.driver.find_element(by=By.CLASS_NAME, value='user-box__password')
+
+    def get_password_confirm_element(self):
+        return self.driver.find_element(by=By.CLASS_NAME, value='user-box__confirm-password')
+
+    def get_button_element(self):
+        return self.driver.find_element(by=By.CLASS_NAME, value='auth-btn')
